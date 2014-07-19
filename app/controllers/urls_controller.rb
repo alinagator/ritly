@@ -11,8 +11,21 @@ class UrlsController < ApplicationController
 	def create
 		@url = Url.new(safe_url_params)	#params is hash that contains the url, and inside the url is another hash which represents the model. 
 										#Inside that is the link "http://..."
+		@url.hash_code = generate_hash_code
 		@url.save
 		redirect_to @url
+	end
+
+	def redirectors
+		# @todo check that urls are valid
+		@url = Url.find_by hash_code: params[:code]
+
+		if @url 
+			redirect_to @url.link
+		else
+			flash[:error] = "Link not valid"
+			redirect_to new_url_path
+		end
 	end
 
 	private

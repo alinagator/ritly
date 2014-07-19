@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :urls, only: [:new, :create, :show]
+  root "urls#new"
   
+  resources :urls, only: [:new, :create, :show]
+
+  get '/:code', to: 'urls#redirectors'
+  get '/:code/preview', to: 'urls#preview'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
