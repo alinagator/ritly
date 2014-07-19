@@ -1,1 +1,4 @@
-_form.html.erb
+<%= form_for @url do |f| %>
+	<%= f.text_field :link %>
+	<%= f.submit "Create" %>
+end
